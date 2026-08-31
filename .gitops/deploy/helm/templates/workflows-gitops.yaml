@@ -11,8 +11,8 @@ spec:
   project: test-project
   source:
     path: .gitops/deploy/helm
-    repoURL: https://github.com/unbounded-tech/workflows-gitops.git
-    targetRevision: v1.6.0
+    repoURL: https://github.com/hops-ops/workflows-gitops.git
+    targetRevision: v2.0.0
     helm:
       version: v3
       values: |
