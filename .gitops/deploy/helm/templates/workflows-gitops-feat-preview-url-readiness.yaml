@@ -22,7 +22,7 @@ spec:
           method: promotion
           event: push
         image:
-          tag: feat-preview-url-readiness-ce9697c409c38fad337caa13a17de2254579da86
+          tag: feat-preview-url-readiness-61d7d03fa5e21c5e81595fb9fd3ec52202491b46
   destination:
     namespace: workflows-gitops-feat-preview-url-readiness
     server: https://kubernetes.default.svc
