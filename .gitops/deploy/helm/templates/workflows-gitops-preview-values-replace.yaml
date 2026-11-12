@@ -1,0 +1,58 @@
+---
+# Source: promotion/templates/application.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-project-workflows-gitops-preview-values-replace
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: test-project
+  source:
+    path: .gitops/deploy/helm
+    repoURL: https://github.com/hops-ops/workflows-gitops.git
+    targetRevision: preview-values-replace
+    helm:
+      version: v3
+      values: |
+        env:
+          test: true
+          type: preview
+          method: promotion
+          event: push
+        image:
+          tag: preview-values-replace-e3cb2d0e9a7be5bd024e33bd949106e519cc56a1
+  destination:
+    namespace: workflows-gitops-preview-values-replace
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+---
+# Source: promotion/templates/preview-resources.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: something
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: test-project
+  source:
+    path: .gitops/deploy/helm
+    repoURL: https://github.com/unbounded-tech/something.git
+    targetRevision: main
+    helm:
+      version: v3
+  destination:
+    namespace: workflows-gitops-preview-values-replace
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
