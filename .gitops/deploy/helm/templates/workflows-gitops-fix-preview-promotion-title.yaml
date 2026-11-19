@@ -22,7 +22,7 @@ spec:
           method: promotion
           event: push
         image:
-          tag: fix-preview-promotion-title-72a33a1ef95918d684cc3b80fcee29a312484889
+          tag: fix-preview-promotion-title-181de78cd0ccbdd6df02a178b3a427257d5cc633
   destination:
     namespace: workflows-gitops-fix-preview-promotion-title
     server: https://kubernetes.default.svc
